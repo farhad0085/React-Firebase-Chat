@@ -31,9 +31,24 @@ function ChatRoom({ firestore, auth, firebase }) {
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     };
 
+    const deleteMessage = async (message) => {
+
+        if (message.uid === auth.currentUser.uid) {
+            try{
+            await messagesRef.doc(message.id).delete();
+            }
+            catch{
+                alert("Error deleting message!")
+            }
+        }
+
+        else {
+            alert("You can't perform this action")
+        }
+
+    };
+
     useEffect(() => {
-        // console.log("use effect called");
-        // console.log(messages);
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }, [messages])
 
@@ -43,7 +58,7 @@ function ChatRoom({ firestore, auth, firebase }) {
             <main>
                 {messages &&
                     messages.map((msg) => (
-                        <ChatMessage key={msg.id} message={msg} auth={auth} />
+                        <ChatMessage deleteMessage={deleteMessage} key={msg.id} message={msg} auth={auth} />
                     ))}
 
                 <span ref={lastMessageRef}></span>

@@ -1,10 +1,12 @@
 import React from 'react'
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 
-function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
+function ChatMessage({ message, auth, deleteMessage }) {
 
-    const messageClass = uid === props.auth.currentUser.uid ? "sent" : "received";
+    const { text, uid, photoURL } = message
+
+    const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
 
     return (
         <>
@@ -16,10 +18,18 @@ function ChatMessage(props) {
                     }
                     alt="loading"
                 />
-                <p>{text}</p>
+                <ContextMenuTrigger id={message.id}>
+                    <p>{text}</p>
+                </ContextMenuTrigger>
             </div>
+
+            <ContextMenu className="contextMenu" id={message.id}>
+                <MenuItem className="contextMenu item" onClick={() => deleteMessage(message)}>
+                    Delete
+                </MenuItem>
+            </ContextMenu>
         </>
-    );
+    )
 }
 
 export default ChatMessage
