@@ -8,7 +8,7 @@ function ChatRoom({ firestore, auth, firebase }) {
 
 
     const messagesRef = firestore.collection("messages");
-    const query = messagesRef.orderBy("createdAt", "desc").limit(100);
+    const query = messagesRef.orderBy("createdAt")
 
     const [messages] = useCollectionData(query, { idField: "id" })
 
@@ -32,17 +32,17 @@ function ChatRoom({ firestore, auth, firebase }) {
     };
 
     useEffect(() => {
-        console.log("use effect called");
-        console.log(messages);
+        // console.log("use effect called");
+        // console.log(messages);
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
-    }, [messages, formValue])
+    }, [messages])
 
 
     return (
         <>
             <main>
                 {messages &&
-                    messages.reverse().map((msg) => (
+                    messages.map((msg) => (
                         <ChatMessage key={msg.id} message={msg} auth={auth} />
                     ))}
 
