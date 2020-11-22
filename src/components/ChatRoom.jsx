@@ -10,10 +10,8 @@ function ChatRoom({ firestore, auth, firebase }) {
     const messagesRef = firestore.collection("messages");
     const query = messagesRef.orderBy("createdAt", "desc").limit(50);
 
-    const [messages] = useCollectionData(query, { idField: "id" });
-    if (messages) {
-        messages.reverse()
-    }
+    const [messages] = useCollectionData(query, { idField: "id" })
+
 
     const [formValue, setFormValue] = useState("");
 
@@ -43,7 +41,7 @@ function ChatRoom({ firestore, auth, firebase }) {
         <>
             <main>
                 {messages &&
-                    messages.map((msg) => (
+                    messages.reverse().map((msg) => (
                         <ChatMessage key={msg.id} message={msg} auth={auth} />
                     ))}
 
