@@ -1,5 +1,4 @@
-// import React, { useEffect, useRef, useState } from "react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import ChatMessage from "./ChatMessage";
 
@@ -9,7 +8,7 @@ function ChatRoom({ firestore, auth, firebase }) {
 
 
     const messagesRef = firestore.collection("messages");
-    const query = messagesRef.orderBy("createdAt", "desc").limit(50);
+    const query = messagesRef.orderBy("createdAt", "desc").limit(100);
 
     const [messages] = useCollectionData(query, { idField: "id" })
 
@@ -20,6 +19,7 @@ function ChatRoom({ firestore, auth, firebase }) {
         e.preventDefault();
 
         const { uid, photoURL } = auth.currentUser;
+        setFormValue("");
 
         await messagesRef.add({
             text: formValue,
@@ -27,15 +27,15 @@ function ChatRoom({ firestore, auth, firebase }) {
             uid,
             photoURL,
         });
-        setFormValue("");
 
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     };
 
-    // useEffect(() => {
-    //     // console.log("use effect called");
-    //     lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
-    // }, [messages])
+    useEffect(() => {
+        console.log("use effect called");
+        console.log(messages);
+        lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    }, [messages, formValue])
 
 
     return (
