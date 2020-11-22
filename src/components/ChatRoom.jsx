@@ -31,10 +31,10 @@ function ChatRoom({ firestore, auth, firebase }) {
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     };
 
-    useEffect(() => {
-        // console.log("use effect called");
-        lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
-    }, [messages])
+    // useEffect(() => {
+    //     // console.log("use effect called");
+    //     lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    // }, [messages])
 
 
     return (
