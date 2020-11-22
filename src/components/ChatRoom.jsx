@@ -20,7 +20,6 @@ function ChatRoom({ firestore, auth, firebase }) {
         e.preventDefault();
 
         const { uid, photoURL } = auth.currentUser;
-        setFormValue("");
 
         await messagesRef.add({
             text: formValue,
@@ -28,6 +27,7 @@ function ChatRoom({ firestore, auth, firebase }) {
             uid,
             photoURL,
         });
+        setFormValue("");
 
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     };
