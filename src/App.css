@@ -63,7 +63,8 @@ form {
 	height: 8vh;
 	position: fixed;
 	bottom: 0;
-	background-color: rgb(24, 23, 23);
+	/* background-color: rgb(24, 23, 23); */
+	background-color: rgb(19, 18, 18);
 	width: 100%;
 	max-width: 728px;
 	display: flex;
@@ -129,7 +130,7 @@ p {
 	position: relative;
     color: white;
     font-size: 1.0rem;
-	text-align: center;
+	text-align: left;
 }
 
 .message {
@@ -148,7 +149,7 @@ p {
 }
 .received p {
 	background: #2e2e35;
-	color: white;
+    color: white;
 }
 
 img {
